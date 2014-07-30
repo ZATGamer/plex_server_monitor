@@ -45,7 +45,7 @@ if __name__ == '__main__':
             print 'Sickbeard is down'
             with Header() as header:
                 pin = OutputPin(22, value=0)
-    time.sleep(30)
+        time.sleep(30)
 
 
 
