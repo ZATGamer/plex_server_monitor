@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     while True:
         if last_run + datetime.timedelta(seconds=10) <= datetime.datetime.now():
-
+            last_run = datetime.datetime.now()
             response = call_sb(sb_api_key, sb_ip, sb_port, sb_api)
 
             try:
