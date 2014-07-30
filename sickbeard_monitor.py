@@ -29,7 +29,7 @@ if __name__ == '__main__':
     sb_api = 'sb.ping'
 
     while True:
-        if last_run + datetime.timedelta(seconds=10) >= datetime.datetime.now():
+        if last_run + datetime.timedelta(seconds=10) <= datetime.datetime.now():
 
             response = call_sb(sb_api_key, sb_ip, sb_port, sb_api)
 
