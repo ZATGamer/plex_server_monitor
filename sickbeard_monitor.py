@@ -22,14 +22,14 @@ def call_sb(sb_api_key, sb_ip, sb_port, sb_api):
 
 
 if __name__ == '__main__':
-    last_run = datetime.datetime.now()
+    last_run = "null"
     sb_api_key = 'd1adef047c3d9c52bf65bfe709831b18'
     sb_ip = '10.180.181.120'
     sb_port = '8081'
     sb_api = 'sb.ping'
 
     while True:
-        if last_run + datetime.timedelta(seconds=10) <= datetime.datetime.now():
+        if last_run + datetime.timedelta(seconds=10) <= datetime.datetime.now() or last_run == "null":
             last_run = datetime.datetime.now()
             response = call_sb(sb_api_key, sb_ip, sb_port, sb_api)
 
