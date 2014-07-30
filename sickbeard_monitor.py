@@ -12,13 +12,13 @@ def call_sb(sb_api_key, sb_ip, sb_port, sb_api):
     try:
         socket.setdefaulttimeout(5)
         response = urlopen('http://{}:{}/api/{}/{}'.format(sb_ip, sb_port, sb_api_key, sb_api ))
-        return response
+        return response, True
 
     except HTTPError, e:
-        return e.code
+        return e.code, False
 
     except URLError, e:
-        return e.reason
+        return e.reason, False
 
 
 if __name__ == '__main__':
@@ -27,30 +27,28 @@ if __name__ == '__main__':
     sb_ip = '10.180.181.120'
     sb_port = '8081'
     sb_api = 'sb.ping'
+    up = bool
 
     while True:
 
         if last_run + datetime.timedelta(seconds=10) <= datetime.datetime.now():
             last_run = datetime.datetime.now()
-            response = call_sb(sb_api_key, sb_ip, sb_port, sb_api)
 
-            try:
+            response, up = call_sb(sb_api_key, sb_ip, sb_port, sb_api)
+
+            if up is True:
                 response2 = json.load(response)
+                test = response2['result']
 
-            except:
-                response2 = {'result': 'broke'}
-
-            test = response2['result']
-
-            if test == 'success':
-                print 'Sickbeard is up'
-                with Header() as header:
-                    pin = OutputPin(22, value=1)
+                if test == 'success':
+                    print 'Sickbeard is up'
+                    with Header() as header:
+                        pin = OutputPin(22, value=1)
+                else:
+                    print 'Sickbeard is down'
+                    with Header() as header:
+                        pin = OutputPin(22, value=0)
             else:
-                print 'Sickbeard is down'
+                print 'Sickbeard didn\'t return expected json'
                 with Header() as header:
                     pin = OutputPin(22, value=0)
-
-
-
-
