@@ -1,5 +1,7 @@
-import gpiocrust
+from gpiocrust import PWMOutputPin, OutputPin, Header
+from time import sleep
 
-with gpiocrust.Header() as header:
-    shiny_led = gpiocrust.OutputPin(11)
-    shiny_led.value = True
+while True:
+    with Header() as header:
+        PWMOutputPin(11, .50)
+        sleep(5)
