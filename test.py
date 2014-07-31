@@ -3,14 +3,11 @@ from time import sleep
 GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(11, GPIO.OUT)
+GPIO.setup(13, GPIO.OUT)
+GPIO.setup(15, GPIO.OUT)
+red = GPIO.PWM(7, 50)
 
-p = GPIO.PWM(7, 50)
-
-p.start(0)
+red.start(0)
 while True:
-    for 1 in range(100):
-        p.ChangeDutyCycle(1)
-        sleep(0.02)
-    for 1 in range(100):
-        p.ChangeDutyCycle(100-1)
-        sleep(0.02)
+        red.ChangeDutyCycle(50)
+
