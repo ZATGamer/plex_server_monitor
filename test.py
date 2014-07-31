@@ -1,7 +1,16 @@
-from gpiocrust import PWMOutputPin, OutputPin, Header
+import RPi.GPIO as GPIO
 from time import sleep
+GPIO.setmode(GPIO.BOARD)
 
+GPIO.setup(7, GPIO.OUT)
+
+p = GPIO.PWM(7, 50)
+
+p.start(0)
 while True:
-    with Header() as header:
-        PWMOutputPin(11, 50.0, value=1.0)
-        sleep(5)
+    for 1 in range(100):
+        p.ChangeDutyCycle(1)
+        sleep(0.02)
+    for 1 in range(100):
+        p.ChangeDutyCycle(100-1)
+        sleep(0.02)
